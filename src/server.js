@@ -3,7 +3,8 @@ import { config } from 'dotenv';
 import { connectDB, disconnectDB, prisma } from './config/db.js';
 
 //importing routes
-import MovieRouter from './routes/MovieRoute.js'
+import MovieRouter from './routes/MovieRoute.js';
+import AuthRoute from './routes/AuthRoute.js';
 
 config();
 connectDB();
@@ -12,6 +13,7 @@ const app = express();
 
 //applying routes
 app.use('/movie',MovieRouter);
+app.use('/auth',AuthRoute);
 
 
 const PORT = 5001;
