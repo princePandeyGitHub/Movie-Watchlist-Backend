@@ -15,8 +15,6 @@ const connectDB = async () => {
         // run inside an async function
         await prisma.$connect();
         console.log("DB connected via Prisma");
-        
-        const users = await prisma.user.findMany()
     }
     catch(error){
         console.error(`Database connection error: ${error.message}`);
