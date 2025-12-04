@@ -1,0 +1,51 @@
+import express from 'express';
+import { config } from 'dotenv';
+import { connectDB, disconnectDB, prisma } from './config/db.js';
+
+//importing routes
+import MovieRouter from './routes/MovieRoute.js'
+
+config();
+connectDB();
+
+const app = express();
+
+//applying routes
+app.use('/movie',MovieRouter);
+
+
+const PORT = 5001;
+app.listen(PORT,()=>{
+    console.log(`server running on ${PORT}`);
+})
+
+// Handle unhandled promise rejections (e.g., database connection errors)
+process.on("unhandledRejection", (err)=>{
+    console.log("Unhandled Rejection : ", err);
+    server.close(async () => {
+        await disconnectDB();
+        process.exit(1);
+    })
+})
+
+// Handle uncaught exceptions
+process.on("uncaughtException", async (err) => {
+    console.log("Uncaught Exception : ", err);
+    await disconnectDB();
+    process.exit(1);
+})
+
+// Graceful shutdown
+process.on("SIGTERM", async () => {
+    console.log("SIGTERM received, shutting down gracefully");
+    server.close(async () => {
+        await disconnectDB();
+        process.exit(0);
+    })
+})
+
+//different routes
+//auth - login/register
+//movie - getting all movies
+//user - profile
+//watchList
