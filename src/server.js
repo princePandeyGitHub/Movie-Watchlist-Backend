@@ -11,6 +11,9 @@ connectDB();
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //applying routes
 app.use('/movie',MovieRouter);
 app.use('/auth',AuthRoute);
