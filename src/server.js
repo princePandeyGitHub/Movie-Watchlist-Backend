@@ -5,6 +5,7 @@ import { connectDB, disconnectDB, prisma } from './config/db.js';
 //importing routes
 import MovieRouter from './routes/MovieRoute.js';
 import AuthRoute from './routes/AuthRoute.js';
+import WatchListRoute from './routes/WatchListRoute.js';
 
 config();
 connectDB();
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 //applying routes
 app.use('/movie',MovieRouter);
 app.use('/auth',AuthRoute);
+app.use('/watchlist',WatchListRoute);
 
 
 const PORT = 5001;
